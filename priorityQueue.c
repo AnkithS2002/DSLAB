@@ -1,7 +1,7 @@
 #include <stdio.h>
 #define SIZE 5
 
-int arr[SIZE], top = -1, front = 0; 
+int arr[SIZE], top = -1; 
 
 void enQueue();
 int deQueue();
@@ -20,7 +20,7 @@ int main() {
 					if(val != -1) printf("The value removed from the queue: %d\n", val);
 					break;
 			case 3: val = peek();
-					if(val != -1) printf("The value on top of the queue is: %d\n", val);
+					if(val != -1) printf("The value with topmost priority is: %d\n", val);
 					break;
 			case 4: display();
 					break;
@@ -36,7 +36,7 @@ int main() {
 
 void enQueue(){
 	int val;
-	if(top == SIZE-1) printf("Queue is full!");
+	if(top == SIZE-1) printf("Queue is full!\n");
 	else{
 		printf("Enter the value to insert: ");
 		scanf("%d", &val);
@@ -45,26 +45,26 @@ void enQueue(){
 		    int i = top;
 			while(i>=0){
 				if(val > arr[i]){
-					arr[i+1] = arr[i];
+					break;
 				}
 				else{
-					arr[i+1] = val;
-					top++;
+					arr[i+1] = arr[i];
 				}
 				i--;
 			}
-			
+			arr[i+1] = val;
+			top++;
 		}
 	}
 }
 
 int deQueue(){
 	if(top == -1){
-		printf("Queue is empty\n!");
+		printf("Queue is empty!\n");
 		return -1;
 	} 
 	else{
-		return arr[front++];
+		return arr[top--];
 	}
 }
 
@@ -74,7 +74,7 @@ int peek(){
 		return -1;
 	} 
 	else{
-		return arr[front];
+		return arr[top];
 	}
 }
 
@@ -83,7 +83,7 @@ void display(){
 		printf("Queue is empty!\n");
 	}
 	else{
-    	for(int i =top; i>=front; i--){
+    	for(int i =top; i>=0; i--){
     		printf("%d ", arr[i]);
     	}
     	printf("\n");
